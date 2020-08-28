@@ -23,6 +23,7 @@
                     <li><a href="bobot_kriteria.php"><span class="fa fa-star"></span> Perbandingan Kriteria</a></li>
                     <li><a href="bobot.php?c=1"><span class="fa fa-star"></span> Perbandingan Alternatif</a></li>
                     <li><a href="hasil.php"><span class="fa fa-star"></span> Hasil</a></li>
+                    <li><a href="user.php"><span class="fa fa-star"></span> Admin</a></li>
 
                 </ul>
         </div>

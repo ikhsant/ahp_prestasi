@@ -39,6 +39,7 @@ for ($i=0; $i <= ($jmlAlternatif-1); $i++) {
 include('../include/header.php');
 
 ?>
+<script type="text/javascript" src="../assets/js/Chart.min.js"></script>
 
 	<h2 class="ui header">Hasil Perhitungan</h2>
 	<table class="table table-bordered">
@@ -123,5 +124,64 @@ include('../include/header.php');
 			?>
 		</tbody>
 	</table>
+
+	<?php $jumlah = mysqli_num_rows($result); ?>
+	<div style="max-width: 400px; margin: auto; margin-bottom: 100px" class="text-center">
+		<h3>Chart</h3>
+		<canvas id="myChart" width="400" height="400"></canvas>
+	</div>
+
+<script>
+	function poolColors(a) {
+	    var pool = [];
+	    for(i = 0; i < a; i++) {
+	        pool.push(dynamicColors());
+	    }
+	    return pool;
+	}
+
+	function dynamicColors() {
+	    var r = Math.floor(Math.random() * 255);
+	    var g = Math.floor(Math.random() * 255);
+	    var b = Math.floor(Math.random() * 255);
+	    return "rgba(" + r + "," + g + "," + b + ", 0.5)";
+	}
+
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: [
+	        	<?php  
+	        		foreach($result as $row){
+	        			echo "'".$row['nama']."',";
+	        		}
+	        	?>
+	        ],
+	        datasets: [{
+	            label: '# Rank',
+	            data: [
+	            	<?php  
+	        		foreach($result as $row){
+	        			echo "'".$row['nilai']."',";
+	        		}
+	        		?>
+	            ],
+	            backgroundColor: poolColors(<?= $jumlah ?>),
+			    borderColor: poolColors(<?= $jumlah ?>),
+			    borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+	</script>
 
 <?php include('footer.php'); ?>
